@@ -80,3 +80,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+THINGIVERSE_FILE = 'login.txt'
+
+try:
+    with open(THINGIVERSE_FILE) as f:
+        thingiverse = f.readlines()
+    THINGIVERSE_KEY = thingiverse[0].rstrip()
+    THINGIVERSE_SECRET = thingiverse[1].rstrip()
+    THINGIVERSE_TOKEN = thingiverse[2].rstrip()
+except Exception:
+    pass
