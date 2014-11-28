@@ -1,0 +1,10 @@
+dependencies: []
+devassistant_version: 0.10.0
+original_kwargs:
+  github: !!python/unicode 'hroncok'
+  name: !!python/unicode 'thingiverse-reranking'
+  py3: !!python/unicode ''
+  venv: !!python/unicode ''
+project_type:
+- python
+- django
