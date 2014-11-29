@@ -19,35 +19,35 @@
         <div class="form-group">
             <label for="likes_count">Name: </label>
             <input type="text" class="form-control" placeholder="Desired name" value="{{ post.name }}" name="name">
-            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.name_weight }}" name="name_weight">
+            <input type="number" min="1" class="form-control" placeholder="Weight" value="{{ post.name_weight }}" name="name_weight">
         </div>
       </div>
       <div class="form-inline">
         <div class="form-group">
             <label for="likes_count">Creator: </label>
             <input type="text" class="form-control" placeholder="Desired creator" value="{{ post.creator }}" name="creator">
-            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.creator_weight }}" name="creator_weight">
+            <input type="number" min="1" class="form-control" placeholder="Weight" value="{{ post.creator_weight }}" name="creator_weight">
         </div>
       </div>
       <div class="form-inline">
         <div class="form-group">
             <label for="likes_count">Likes count: </label>
-            <input type="number" min="0" class="form-control" placeholder="Desired likes count" value="{{ post.likes_count }}" name="likes_count">
-            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.likes_weight }}" name="likes_weight">
+            <input type="number" min="0" class="form-control" placeholder="Desired likes count" value="{{ post.like_count }}" name="like_count">
+            <input type="number" min="1" class="form-control" placeholder="Weight" value="{{ post.like_count_weight }}" name="like_count_weight">
         </div>
       </div>
       <div class="form-inline">
         <div class="form-group">
             <label for="likes_count">Collections count: </label>
-            <input type="number" min="0" class="form-control" placeholder="Desired collections count" value="{{ post.collections_count }}" name="collections_count">
-            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.collections_weight }}" name="collections_weight">
+            <input type="number" min="0" class="form-control" placeholder="Desired collections count" value="{{ post.collect_count }}" name="collect_count">
+            <input type="number" min="1" class="form-control" placeholder="Weight" value="{{ post.collect_count_weight }}" name="collect_count_weight">
         </div>
       </div>
       <div class="form-inline">
         <div class="form-group">
             <label for="likes_count">Age: </label>
             <input type="number" min="0" class="form-control" placeholder="Desired age" value="{{ post.age }}" name="age">
-            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.age_weight }}" name="age_weight">
+            <input type="number" min="1" class="form-control" placeholder="Weight" value="{{ post.age_weight }}" name="age_weight">
         </div>
       </div>
     </div>
@@ -66,17 +66,15 @@
       <th>Likes</th>
       <th>Collections</th>
       <th>Age</th>
-      <th>License</th>
     </tr>
   {% for result in results %}
     <tr>
       <td><img alt="{{ result.name }}" src="{{ result.thumbnail }}" /></td>
-      <td><p><a href="{{ result.public_url }}">{{ result.name }}</a></p><p>None</p></td>
-      <td><p><a href="{{ result.creator.public_url }}">{{ result.creator.name }}</a></p><p>None</p></td>
-      <td><p>{{ result.detail.like_count }}</p><p>None</p></td>
-      <td><p>{{ result.detail.collect_count }}</p><p>None</p></td>
-      <td><p>{{ result.detail.age }} days</p><p>None</p></td>
-      <td><p>{{ result.detail.license }}</p><p>None</p></td>
+      <td><p><a href="{{ result.public_url }}">{{ result.name }}</a></p><p>{{ result.relative.name }}</p></td>
+      <td><p><a href="{{ result.creator.public_url }}">{{ result.creator.name }}</a></p><p>{{ result.relative.creator }}</p></td>
+      <td><p>{{ result.detail.like_count }}</p><p>{{ result.relative.like_count }}</p></td>
+      <td><p>{{ result.detail.collect_count }}</p><p>{{ result.relative.collect_count }}</p></td>
+      <td><p>{{ result.detail.age }} days</p><p>{{ result.relative.age }}</p></td>
     </tr>
   {% empty %}
     <tr><td>No results found. Maybe try to search for something else.</td><tr>
