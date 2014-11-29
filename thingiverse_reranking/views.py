@@ -13,12 +13,14 @@ DATE_LENGTH = 10
 FEATURES = ['name', 'creator', 'like_count', 'collect_count', 'age']
 STRINGS = ['name', 'creator']
 
-def normalize(value, minimum, maximum, weight=1):
+
+def normalize(value, minimum, maximum, weight):
     '''Normalizes the given value to <0,weight>'''
     if maximum == 0:
         return 0
     else:
         return float(value - minimum) / maximum * weight
+
 
 def index(request):
     '''The homepage'''
@@ -68,17 +70,19 @@ def index(request):
                     result['absolute']['name'] = distance(result['name'], request.POST.get('name'))
                 else:
                     result['absolute'][feature] = int(result['detail'][feature])
-                
-                # Store maxs and mins
-                maxs[feature] = max(maxs[feature],result['absolute'][feature])
-                mins[feature] = min(mins[feature],result['absolute'][feature])
 
+                # Store maxs and mins
+                maxs[feature] = max(maxs[feature], result['absolute'][feature])
+                mins[feature] = min(mins[feature], result['absolute'][feature])
+
+        # Normalize the given values
         for feature in maxs:
             if feature not in STRINGS:
                 normalized[feature] = normalize(int(request.POST.get(feature)), mins[feature], maxs[feature], weights[feature])
             else:
                 normalized[feature] = 0
 
+        # Normalize calculated values and return delta from the given ones
         for result in results:
             for feature in maxs:
                 rel = normalize(result['absolute'][feature], mins[feature], maxs[feature], weights[feature])
