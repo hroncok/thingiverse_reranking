@@ -82,4 +82,4 @@ try:
     THINGIVERSE_SECRET = thingiverse[1].rstrip()
     THINGIVERSE_TOKEN = thingiverse[2].rstrip()
 except Exception:
-    pass
+    raise Exception('Create login.txt file with 3 lines as described in login.txt.sample')
