@@ -83,6 +83,9 @@
   {% endfor %}
   </table>
 </div>
+  <p>It took {{ deltas.total.seconds }}.{{ deltas.total.microseconds }} seconds.
+  API calls took {{ deltas.api.seconds }}.{{ deltas.api.microseconds }} seconds.
+  The rest took {{ deltas.noapi.seconds }}.{{ deltas.noapi.microseconds }} seconds.</p>
 {% endif %}
 
 {% endblock %}
