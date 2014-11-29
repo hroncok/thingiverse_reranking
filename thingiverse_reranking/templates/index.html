@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Thingiverse reranking{% endblock %}
-
 {% block content %}
+
+<div class="page-header">
+  <h1>{% block title %}Thingiverse reranking search{% if term %}: Results for {{ term }}{% endif %}{% endblock %}</h1>
+</div>
+
 <div class="jumbotron">
   <form role="search" method="post" action="">
     {% csrf_token %}
@@ -13,7 +16,33 @@
   </div>
   </form>
 </div>
-{% for result in results %}
-<p>{{ result.name }}</p>
-{% endfor %}
+
+{% if term %}
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <th colspan="2">Thing</th>
+      <th>Creator</th>
+      <th>Likes</th>
+      <th>Collections</th>
+      <th>Age</th>
+      <th>License</th>
+    </tr>
+  {% for result in results %}
+    <tr>
+      <td><img alt="{{ result.name }}" src="{{ result.thumbnail }}" /></td>
+      <td><p><a href="{{ result.public_url }}">{{ result.name }}</a></p><p>None</p></td>
+      <td><p><a href="{{ result.creator.public_url }}">{{ result.creator.name }}</a></p><p>None</p></td>
+      <td><p>{{ result.detail.like_count }}</p><p>None</p></td>
+      <td><p>{{ result.detail.collect_count }}</p><p>None</p></td>
+      <td><p>{{ result.detail.age }} days</p><p>None</p></td>
+      <td><p>{{ result.detail.license }}</p><p>None</p></td>
+    </tr>
+  {% empty %}
+    <tr><td>No results found. Maybe try to search for something else.</td><tr>
+  {% endfor %}
+  </table>
+</div>
+{% endif %}
+
 {% endblock %}
