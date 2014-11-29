@@ -66,6 +66,7 @@
       <th>Likes</th>
       <th>Collections</th>
       <th>Age</th>
+      <th>Penalty</th>
     </tr>
   {% for result in results %}
     <tr>
@@ -75,6 +76,7 @@
       <td><p>{{ result.detail.like_count }}</p><p>{{ result.relative.like_count }}</p></td>
       <td><p>{{ result.detail.collect_count }}</p><p>{{ result.relative.collect_count }}</p></td>
       <td><p>{{ result.detail.age }} days</p><p>{{ result.relative.age }}</p></td>
+      <td><p>Total:</p><p>{{ result.penalty }}</p></td>
     </tr>
   {% empty %}
     <tr><td>No results found. Maybe try to search for something else.</td><tr>

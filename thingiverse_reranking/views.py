@@ -84,10 +84,13 @@ def index(request):
 
         # Normalize calculated values and return delta from the given ones
         for result in results:
+            result['penalty'] = 0.0
             for feature in maxs:
                 rel = normalize(result['absolute'][feature], mins[feature], maxs[feature], weights[feature])
                 result['relative'][feature] = abs(normalized[feature]-rel)
+                result['penalty'] += result['relative'][feature]
 
+        results = sorted(results, key=lambda k: k['penalty'])
     else:
         term = ""
         results = []
