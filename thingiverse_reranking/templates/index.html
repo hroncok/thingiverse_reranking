@@ -2,5 +2,17 @@
 {% block title %}Thingiverse reranking{% endblock %}
 
 {% block content %}
-Uaaaa.
+<div class="jumbotron">
+  <form role="search" method="get" action="">
+    <div class="input-group">
+    <input type="text" class="form-control" placeholder="Try to search for some things" value="{{ term }}" name="term">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+  </div>
+  </form>
+</div>
+{% for result in results %}
+<p>{{ result.name }}</p>
+{% endfor %}
 {% endblock %}
