@@ -12,7 +12,7 @@ def index(request):
     '''The homepage'''
     t = thingiverse.Thingiverse({'client_id': KEY, 'client_secret': SECRET, 'redirect_uri': ''})
     t.connect(TOKEN)
-    term = request.GET.get('term')
+    term = request.POST.get('term')
     if term:
         results = t.keyword_search(term)
     else:
