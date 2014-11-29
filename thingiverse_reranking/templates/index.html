@@ -9,7 +9,7 @@
   <form role="search" method="post" action="">
     {% csrf_token %}
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Try to search for some things (searches in thing names and creators, etc.)" value="{{ term }}" name="term">
+      <input type="text" class="form-control" placeholder="Try to search for some things (searches in thing names, creators, description, etc.)" value="{{ term }}" name="term">
       <div class="input-group-btn">
         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
       </div>
