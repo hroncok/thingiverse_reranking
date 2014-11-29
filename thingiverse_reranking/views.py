@@ -64,10 +64,11 @@ def index(request):
 
             # Calculate numeric constrains
             for feature in maxs:
+                # This should really use "in STRINGS", but creator name and thing name are differently saved in the dict
                 if feature == 'creator':
-                    result['absolute']['creator'] = distance(result['creator']['name'], request.POST.get('creator'))
+                    result['absolute'][feature] = distance(result[feature]['name'], request.POST.get(feature))
                 elif feature == 'name':
-                    result['absolute']['name'] = distance(result['name'], request.POST.get('name'))
+                    result['absolute'][feature] = distance(result[feature], request.POST.get(feature))
                 else:
                     result['absolute'][feature] = int(result['detail'][feature])
 
