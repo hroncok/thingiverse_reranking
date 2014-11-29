@@ -11,6 +11,17 @@ Libraries and technologies used
  * [Python Thingiverse wrapper](https://github.com/hroncok/thingiverse)
  * [python-Levenshtein](https://pypi.python.org/pypi/python-Levenshtein/)
 
+How to run this
+---------------
+
+The easiest way to obtain the libraries is to start a [Python virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) and run:
+
+    pip install -r requirements.txt
+
+Then put your Thingiverse credentials to `login.txt` as seen in `login.txt.sample` and run (still in the virtualenv):
+
+    ./manage.py runserver
+
 License
 -------
 

@@ -10,3 +10,4 @@ sdist
 
 *.sqlite3
 login.txt
+venv
