@@ -27,4 +27,4 @@ def index(request):
     else:
         term = ""
         results = []
-    return render(request, 'index.html', {'term': term, 'results': results})
+    return render(request, 'index.html', {'term': term, 'results': results, 'post': request.POST})

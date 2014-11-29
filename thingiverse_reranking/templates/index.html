@@ -9,11 +9,51 @@
   <form role="search" method="post" action="">
     {% csrf_token %}
     <div class="input-group">
-    <input type="text" class="form-control" placeholder="Try to search for some things" value="{{ term }}" name="term">
-    <div class="input-group-btn">
-      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+      <input type="text" class="form-control" placeholder="Try to search for some things (searches in thing names and creators, etc.)" value="{{ term }}" name="term">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
     </div>
-  </div>
+    <div class="collapse" id="details" style="text-align: right;">
+      <div class="form-inline">
+        <div class="form-group">
+            <label for="likes_count">Name: </label>
+            <input type="text" class="form-control" placeholder="Desired name" value="{{ post.name }}" name="name">
+            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.name_weight }}" name="name_weight">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+            <label for="likes_count">Creator: </label>
+            <input type="text" class="form-control" placeholder="Desired creator" value="{{ post.creator }}" name="creator">
+            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.creator_weight }}" name="creator_weight">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+            <label for="likes_count">Likes count: </label>
+            <input type="number" min="0" class="form-control" placeholder="Desired likes count" value="{{ post.likes_count }}" name="likes_count">
+            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.likes_weight }}" name="likes_weight">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+            <label for="likes_count">Collections count: </label>
+            <input type="number" min="0" class="form-control" placeholder="Desired collections count" value="{{ post.collections_count }}" name="collections_count">
+            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.collections_weight }}" name="collections_weight">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+            <label for="likes_count">Age: </label>
+            <input type="number" min="0" class="form-control" placeholder="Desired age" value="{{ post.age }}" name="age">
+            <input type="number" min="0" class="form-control" placeholder="Weight" value="{{ post.age_weight }}" name="age_weight">
+        </div>
+      </div>
+    </div>
+    <div style="text-align: right;">
+      <a class="btn btn-default" data-toggle="collapse" data-target="#details">Toggle details</a>
+    </div>
   </form>
 </div>
 
