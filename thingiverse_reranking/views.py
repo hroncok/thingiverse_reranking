@@ -68,7 +68,7 @@ def index(request):
                 elif feature == 'name':
                     result['absolute'][feature] = distance(result[feature], request.POST.get(feature))
                 else:
-                    result['absolute'][feature] = abs(int(result['detail'][feature])-int(request.POST.get(feature)))
+                    result['absolute'][feature] = abs(int(result['detail'][feature]) - int(request.POST.get(feature)))
 
                 # Store maxs
                 maxs[feature] = max(maxs[feature], result['absolute'][feature])
