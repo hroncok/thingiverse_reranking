@@ -24,10 +24,10 @@ def normalize(value, maximum, weight):
 
 def index(request):
     '''The homepage'''
-    t = thingiverse.Thingiverse({'client_id': KEY, 'client_secret': SECRET, 'redirect_uri': ''})
-    t.connect(TOKEN)
     term = request.POST.get('term')
     if term:
+        t = thingiverse.Thingiverse({'client_id': KEY, 'client_secret': SECRET, 'redirect_uri': ''})
+        t.connect(TOKEN)
         results = t.keyword_search(term)
 
         maxs = {}
