@@ -24,6 +24,7 @@ def normalize(value, maximum, weight):
 def index(request):
     '''The homepage'''
     term = request.POST.get('term')
+    deltas = {}
     if term:
         times = []
         times.append(datetime.now())
@@ -49,6 +50,15 @@ def index(request):
                     weights[feature] = int(weight)
                 else:
                     weights[feature] = 1
+
+        # When nothing is found a dictionary is returned
+        # {'error': 'Not Found'}
+        if type(results) != list:
+            results = []
+            # This is not very nice, I know
+            now = datetime.now()
+            times.append(now)
+            times.append(now)
 
         for result in results:
             # Get more info
@@ -88,14 +98,12 @@ def index(request):
         times.append(datetime.now())
         
         # Calculate times
-        deltas = {}
         deltas['total'] = times[4] - times[0]
         deltas['api'] = (times[1] - times[0]) + (times[3] - times[2])
         deltas['noapi'] = deltas['total'] - deltas['api']
     else:
         term = ""
         results = []
-        deltas = {}
     return render(request, 'index.html', {'term': term,
                                           'results': results,
                                           'post': request.POST,
