@@ -16,10 +16,9 @@ STRINGS = ['name', 'creator']
 
 def normalize(value, maximum, weight):
     '''Normalizes the given value to <0,weight>'''
-    if maximum == 0:
-        return 0
-    else:
+    if maximum:
         return float(value) / maximum * weight
+    return 0
 
 
 def index(request):
