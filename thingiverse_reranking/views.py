@@ -14,12 +14,12 @@ FEATURES = ['name', 'creator', 'like_count', 'collect_count', 'age']
 STRINGS = ['name', 'creator']
 
 
-def normalize(value, minimum, maximum, weight):
+def normalize(value, maximum, weight):
     '''Normalizes the given value to <0,weight>'''
     if maximum == 0:
         return 0
     else:
-        return float(value - minimum) / maximum * weight
+        return float(value) / maximum * weight
 
 
 def index(request):
@@ -31,7 +31,6 @@ def index(request):
         results = t.keyword_search(term)
 
         maxs = {}
-        mins = {}
         normalized = {}
         weights = {}
 
@@ -43,7 +42,6 @@ def index(request):
                 else:
                     value = int(value)
                 maxs[feature] = value
-                mins[feature] = value
                 weight = request.POST.get(feature + '_weight')
                 if weight:
                     weights[feature] = int(weight)
@@ -70,27 +68,17 @@ def index(request):
                 elif feature == 'name':
                     result['absolute'][feature] = distance(result[feature], request.POST.get(feature))
                 else:
-                    result['absolute'][feature] = int(result['detail'][feature])
+                    result['absolute'][feature] = abs(int(result['detail'][feature])-int(request.POST.get(feature)))
 
-                # Store maxs and mins
+                # Store maxs
                 maxs[feature] = max(maxs[feature], result['absolute'][feature])
-                mins[feature] = min(mins[feature], result['absolute'][feature])
 
-        # Normalize the given values
-        for feature in maxs:
-            if feature not in STRINGS:
-                normalized[feature] = normalize(int(request.POST.get(feature)), mins[feature], maxs[feature], weights[feature])
-            else:
-                normalized[feature] = 0
-
-        # Normalize calculated values and return delta from the given ones
+        # Normalize calculated values
         for result in results:
             result['penalty'] = 0.0
             for feature in maxs:
-                rel = normalize(result['absolute'][feature], mins[feature], maxs[feature], weights[feature])
-                result['relative'][feature] = abs(normalized[feature]-rel)
+                result['relative'][feature] = normalize(result['absolute'][feature], maxs[feature], weights[feature])
                 result['penalty'] += result['relative'][feature]
-
         results = sorted(results, key=lambda k: k['penalty'])
     else:
         term = ""
