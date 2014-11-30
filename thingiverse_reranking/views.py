@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from datetime import datetime
+import math
 from Levenshtein import distance
 import thingiverse
 
@@ -14,10 +15,10 @@ FEATURES = ['name', 'creator', 'like_count', 'collect_count', 'age']
 STRINGS = ['name', 'creator']
 
 
-def normalize(value, total, weight):
-    '''Normalizes the given value, so all in total equals to weight'''
+def normalize(value, total, weight, features_count):
+    '''Normalizes the given value based on number of features and weight'''
     if total:
-        return float(value) / total * weight
+        return (float(value) / total) ** (1.0 / features_count) * weight
     return 0
 
 
@@ -87,12 +88,12 @@ def index(request):
         for result in results:
             result['penalty'] = 0.0
             for feature in total:
-                result['relative'][feature] = normalize(result['absolute'][feature], total[feature], weights[feature])
+                result['relative'][feature] = normalize(result['absolute'][feature], total[feature], weights[feature], len(total))
                 result['penalty'] += result['relative'][feature]
         results = sorted(results, key=lambda k: k['penalty'])
 
         times.append(datetime.now())
-        
+
         # Calculate times
         deltas['total'] = times[4] - times[0]
         deltas['api'] = (times[1] - times[0]) + (times[3] - times[2])
