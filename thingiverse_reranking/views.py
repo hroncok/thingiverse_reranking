@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from datetime import datetime
+from math import sqrt
 from Levenshtein import distance
 import thingiverse
 
@@ -15,9 +16,9 @@ STRINGS = ['name', 'creator']
 
 
 def normalize(value, maximum, weight):
-    '''Normalizes the given value to <0,weight>'''
+    '''Normalizes the given value to <0,weight> to square'''
     if maximum:
-        return float(value) / maximum * weight
+        return (float(value) / maximum * weight) ** 2
     return 0
 
 
@@ -93,10 +94,11 @@ def index(request):
             for feature in maxs:
                 result['relative'][feature] = normalize(result['absolute'][feature], maxs[feature], weights[feature])
                 result['penalty'] += result['relative'][feature]
+            result['penalty'] = sqrt(result['penalty'])
         results = sorted(results, key=lambda k: k['penalty'])
 
         times.append(datetime.now())
-        
+
         # Calculate times
         deltas['total'] = times[4] - times[0]
         deltas['api'] = (times[1] - times[0]) + (times[3] - times[2])
